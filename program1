@@ -1,0 +1,45 @@
+.convert("RGB")
+                img = img.resize(img_size)
+
+                # Save to new location
+                save_path = os.path.join(output_category_path, img_name)
+                img.save(save_path)
+
+            except Exception as e:
+                print(f"Error fixing {img_path}: {e}")
+                import os
+from PIL import Image
+
+# Input dataset path
+dataset_paths = [
+    r"C:\Users\DELL\Downloads\archive(1)\modified-dataset\train",
+    r"C:\Users\DELL\Downloads\archive(1)\modified-dataset\val",
+    r"C:\Users\DELL\Downloads\archive(1)\modified-dataset\test"
+]
+
+# Output folder
+output_root = r"C:\Users\DELL\resized-dataset"
+img_size = (128, 128)
+
+for dataset_path in dataset_paths:
+    for category in os.listdir(dataset_path):
+        category_path = os.path.join(dataset_path, category)
+        if not os.path.isdir(category_path):
+            continue
+
+        # Create output category folder
+        output_category_path = os.path.join(output_root, os.path.basename(dataset_path), category)
+        os.makedirs(output_category_path, exist_ok=True)
+
+        for img_name in os.listdir(category_path):
+            img_path = os.path.join(category_path, img_name)
+            try:
+                img = Image.open(img_path).convert("RGB")
+                img = img.resize(img_size)
+
+                # Save to new location
+                save_path = os.path.join(output_category_path, img_name)
+                img.save(save_path)
+
+            except Exception as e:
+                print(f"Error fixing {img_path}: {e}")
